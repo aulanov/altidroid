@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <CheckBoxPreference
+        android:title="@string/pref_use_imperial_units"
+        android:key="use_imperial_units"
+        android:defaultValue="@string/default_use_imperial_units" />
+
+    <org.openskydive.altidroid.ui.VolumePreference
+        android:key="freefall_volume"
+        android:title="@string/pref_freefall_volume"
+        android:ringtoneType="alarm"
+        android:defaultValue="@string/default_freefall_volume"
+         />
+
+    <org.openskydive.altidroid.ui.VolumePreference
+        android:key="canopy_volume"
+        android:title="@string/pref_canopy_volume"
+        android:ringtoneType="alarm"
+        android:defaultValue="@string/default_canopy_volume"
+         />
+
+    <CheckBoxPreference
+        android:title="@string/pref_log_auto_fill"
+        android:summaryOn="@string/pref_log_auto_fill_summary"
+        android:summaryOff="@string/pref_log_auto_fill_summary"
+        android:key="log_auto_fill"
+        android:defaultValue="@string/default_log_auto_fill"/>
+
+</PreferenceScreen>

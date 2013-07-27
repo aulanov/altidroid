@@ -1,0 +1,107 @@
+<resources>
+
+    <string name="app_name">Altidroid</string>
+    <string name="notification_text">Altidroid is running</string>
+    <string name="alarm_dialog_title">Alarm</string>
+    <string name="units_m_short">m</string>
+    <string name="units_ft_short">ft</string>
+    <string name="units_s_short">s</string>
+    <string name="freefall_group_title">Free fall</string>
+    <string name="timer_group_title">Timer</string>
+    <string name="canopy_group_title">Canopy</string>
+    <string name="break_off_name">Breakoff</string>
+    <string name="deploy_name">Deploy</string>
+    <string name="danger_name">Danger</string>
+    <string name="downwind_leg_name">Downwind leg</string>
+    <string name="base_leg_name">Base leg</string>
+    <string name="final_approach_name">Final</string>
+    <string name="alarm_sound">Alarm sound</string>
+    <string name="altitude">Altitude</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="name">Name</string>
+    <string name="message">Message</string>
+    <string name="tts_message">Voice message</string>
+    <string name="sound">Sound</string>
+    <string name="built_in">Built-in sound</string>
+    <string name="system_alarm">System alarm</string>
+    <string name="custom_sound">Custom sound</string>
+    <string name="pick">Pick</string>
+    <string name="pref_use_imperial_units">Use imperial units (feet)</string>
+    <string name="pref_freefall_volume">Volume during freefall</string>
+    <string name="pref_canopy_volume">Volume under canopy</string>
+    <string name="pref_log_auto_fill">Auto fill log data</string>
+    <string name="pref_log_auto_fill_summary">Copy dropzone, equipment and aircraft information
+        from the previous jump.</string>
+    <string name="preferences">Preferences</string>
+    <string name="empty_log_text">No jumps logged.</string>
+    <string name="jump_info_title">Jump Info</string>
+    <string name="jump_number">Jump #:</string>
+    <string name="date">Date:</string>
+    <string name="drop_zone">Drop zone:</string>
+    <string name="jump_type">Jump type:</string>
+    <string name="equipment">Equipment:</string>
+    <string name="aircraft">Aircraft:</string>
+    <string name="type">Type:</string>
+    <string name="comments">Comments:</string>
+    <string name="exit_at">Exit at:</string>
+    <string name="deploy_at">Deploy at:</string>
+    <string name="delay">Delay:</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="alert_dialog_delete_jump_confirmation">Delete this jump?</string>
+    <string name="error_no_tone_selected">Please select alarm sound.</string>
+    <string name="error_no_altitude_value">Please specify altitude for this alarm.</string>
+    <string name="error_no_delay_value">Please specify delay for this alarm.</string>
+    <string name="add_alarm">Add new alarm</string>
+    <string name="default_use_imperial_units">false</string>
+    <string name="default_freefall_volume">0.85</string>
+    <string name="default_canopy_volume">0.65</string>
+
+    <string-array name="jump_type_list">
+        <item>RW</item>
+        <item>Freefly</item>
+        <item>Camera</item>
+        <item>Hop and Pop</item>
+        <item>Hybrid</item>
+        <item>Tandem</item>
+        <item>Tracking</item>
+        <item>Wingsuit</item>
+    </string-array>
+
+    <string name="default_log_auto_fill">true</string>
+    <string name="play_button">play</string>
+
+    <string name="status_title">Status</string>
+    <string name="alarms_title">Alarms</string>
+    <string name="log_title">Log</string>
+
+	<string name="status_pressure">Barometric pressure: %.1f hPa\n</string>
+	<string name="status_altitude">Altitude: %s\n</string>
+	<string name="status_pressure_altitude">Pressure Altitude: %s\n</string>
+	<string name="status_time_in_flight">Time in flight: %s\n</string>
+	<string name="status_climb_rate">Climb rate: %s\n</string>
+	<string name="status_time_to_altitude">Time to %1$s: %2$s\n</string>
+	<string name="status_time_to_altitude_unknown">Unknown</string>
+	
+	<string name="climb_rate_ft_per_min">%s ft/min</string>
+	<string name="climb_rate_meters_per_min">%s m/min</string>
+	
+	<string name="time_interval_min">%d min</string>
+	<string name="time_interval_s">%d s</string>
+
+	<string name="first_time_warning_title">WARNING:</string>
+	<string name="first_time_warning">This program comes with no guarantees.
+	    It\'s not been tested in all configurations and may fail at any moment.
+	    Never rely on it. Skydiving is a dangerous activity that may lead to injuries
+	    or death.</string>
+	<string name="first_time_warning_show_next_time">Show this warning next time</string>
+
+    <string name="no_pressure_sensor_warning">This app requires a pressure sensor to be present. 
+        Looks like your device doesn\'t have one :(</string>
+</resources>
