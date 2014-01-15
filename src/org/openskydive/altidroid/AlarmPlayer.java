@@ -58,7 +58,6 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
     private boolean mAudioFocusRequested;
 
     private interface PlayHandler {
-
         void stop();
 
         boolean play(int stream, int volume);

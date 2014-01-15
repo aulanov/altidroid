@@ -62,6 +62,7 @@
     <string name="default_use_imperial_units">false</string>
     <string name="default_freefall_volume">0.85</string>
     <string name="default_canopy_volume">0.65</string>
+    <string name="next_jump">Next jump:</string>
 
     <string-array name="jump_type_list">
         <item>RW</item>

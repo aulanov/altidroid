@@ -30,6 +30,7 @@ public class Preferences extends PreferenceActivity {
     public static final String CANOPY_VOLUME = "canopy_volume";
     public static final String LOG_AUTO_FILL = "log_auto_fill";
     public static final String SHOW_WARNING = "show_warning";
+    public static final String NEXT_JUMP_NUMBER = "next_jump_number";
 
     private AlarmPlayer mAlarmPlayer;
 

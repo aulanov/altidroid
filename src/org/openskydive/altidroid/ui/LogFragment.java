@@ -48,7 +48,8 @@ public class LogFragment extends ListFragment
     private Typeface mNumberTypeface;
 
     public class LogCursorAdapter extends CursorAdapter {
-        private final DateFormat mDateFormat = android.text.format.DateFormat.getMediumDateFormat(getActivity());
+        private final DateFormat mDateFormat =
+                android.text.format.DateFormat.getMediumDateFormat(getActivity());
 
         public LogCursorAdapter() {
             super(getActivity(), null, 0);

@@ -28,8 +28,10 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class LogProvider extends ContentProvider {
+    public static final String AUTHORITY = "org.openskydive.altidroid.log";
+
     public static final Uri COMPLETIONS_URI =
-            Uri.parse("content://org.openskydive.altidroid.log/completions");
+            Uri.parse("content://" + AUTHORITY + "/completions");
 
     private static final int LOG = 1;
     private static final int LOG_JUMP_ID = 2;
@@ -40,10 +42,10 @@ public class LogProvider extends ContentProvider {
             UriMatcher.NO_MATCH);
 
     static {
-        sURLMatcher.addURI("org.openskydive.altidroid.log", "log", LOG);
-        sURLMatcher.addURI("org.openskydive.altidroid.log", "log/#", LOG_JUMP_ID);
-        sURLMatcher.addURI("org.openskydive.altidroid.log", "log/last", LOG_LAST);
-        sURLMatcher.addURI("org.openskydive.altidroid.log", "completions", COMPLETIONS);
+        sURLMatcher.addURI(AUTHORITY, "log", LOG);
+        sURLMatcher.addURI(AUTHORITY, "log/#", LOG_JUMP_ID);
+        sURLMatcher.addURI(AUTHORITY, "log/last", LOG_LAST);
+        sURLMatcher.addURI(AUTHORITY, "completions", COMPLETIONS);
     }
 
     private LogDatabaseHelper mOpenHelper;
@@ -144,6 +146,8 @@ public class LogProvider extends ContentProvider {
 
         mBackupManager.dataChanged();
         getContext().getContentResolver().notifyChange(newUri, null);
+        getContext().getContentResolver().notifyChange(
+                Uri.withAppendedPath(LogEntry.Columns.CONTENT_URI, "last"), null);
         return newUri;
     }
 

@@ -208,9 +208,7 @@ public class SkydiveController implements AltitudeListener, VerticalAcceleration
                 newType = SkydiveState.Type.GROUND;
             } else if (mSpeed > -15 * M_PER_S) {
                 if (curType == Type.FREEFALL) {
-                    mJumpInfo.setDeployAltitude(update.getAltitude());
-                    mJumpInfo.setDeployTime(update.getTimestamp());
-                    mJumpInfo.writeToLog(mContext, mPrefs.getBoolean(Preferences.LOG_AUTO_FILL, true));
+                    logCurrentJump(update);
                 }
                 newType = SkydiveState.Type.CANOPY;
             }
@@ -219,6 +217,17 @@ public class SkydiveController implements AltitudeListener, VerticalAcceleration
         newState = new SkydiveState(update, newType, mSpeed, mJumpInfo, mLastAcceleration);
 
         return newState;
+    }
+
+    private void logCurrentJump(Update update) {
+        mJumpInfo.setDeployAltitude(update.getAltitude());
+        mJumpInfo.setDeployTime(update.getTimestamp());
+        mJumpInfo.writeToLog(mContext,
+                mPrefs.getInt(Preferences.NEXT_JUMP_NUMBER, -1),
+                mPrefs.getBoolean(Preferences.LOG_AUTO_FILL, true));
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.remove(Preferences.NEXT_JUMP_NUMBER);
+        editor.apply();
     }
 
     @Override

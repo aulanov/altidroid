@@ -130,19 +130,23 @@ public class JumpInfo {
         builder.setFreefallTime((int) (getDeployTime() - getExitTime()));
     }
 
-    private LogEntry buildNewLogEntry(Context context, boolean autoFill) {
+    private LogEntry buildNewLogEntry(Context context, int jumpNumber, boolean autoFill) {
         LogProtos.Entry.Builder builder;
+        int minJumpNumber = 1;
         LogEntry logEntry = LogEntry.readLastJump(context);
-        if (logEntry == null || !autoFill) {
+        if (logEntry == null) {
             builder = LogProtos.Entry.newBuilder();
-            builder.setNumber(
-                    (logEntry == null) ? 1 : (mLogEntry.getProto().getNumber() + 1));
         } else {
-            builder = LogProtos.Entry.newBuilder(logEntry.getProto());
-            builder.clearId();
-            builder.clearComments();
-            builder.setNumber(logEntry.getProto().getNumber() + 1);
+            if (!autoFill) {
+                builder = LogProtos.Entry.newBuilder();
+            } else {
+                builder = LogProtos.Entry.newBuilder(logEntry.getProto());
+                builder.clearId();
+                builder.clearComments();
+            }
+            minJumpNumber = logEntry.getProto().getNumber() + 1;
         }
+        builder.setNumber(Math.max(jumpNumber, minJumpNumber));
         updateLogEntryFields(builder);
         return new LogEntry(builder.build());
     }
@@ -154,9 +158,9 @@ public class JumpInfo {
         return new LogEntry(builder.build());
     }
 
-    public Uri writeToLog(Context context, boolean autoFill) {
+    public Uri writeToLog(Context context, int jumpNumber, boolean autoFill) {
         if (mLoggedUri == null) {
-            mLogEntry = buildNewLogEntry(context, autoFill);
+            mLogEntry = buildNewLogEntry(context, jumpNumber, autoFill);
             Log.i("JumpInfo", "Logging: " + mLogEntry.getProto().toString());
             mLoggedUri = context.getContentResolver().insert(
                     LogEntry.Columns.CONTENT_URI, mLogEntry.createContentValues());

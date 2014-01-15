@@ -76,7 +76,7 @@ public class AltidroidService extends Service implements SkydiveListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (ACTION_FOREGROUND.equals(intent.getAction())) {
+        if (intent != null && ACTION_FOREGROUND.equals(intent.getAction())) {
             myStartForeground();
         } else {
             myStopForeground();

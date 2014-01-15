@@ -39,7 +39,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class AlarmsFragment extends ExpandableListFrament implements OnSharedPreferenceChangeListener {
+public class AlarmsFragment
+        extends ExpandableListFrament
+        implements OnSharedPreferenceChangeListener {
     private LayoutInflater mLayoutInflater;
     private AlarmsListAdapter mAdapter;
     private Group mGroups[];
