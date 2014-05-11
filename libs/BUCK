@@ -1,5 +1,0 @@
-prebuilt_jar(
-  name = 'android-support',
-  binary_jar = 'android-support-v13.jar',
-  visibility = [ 'PUBLIC' ],
-)
