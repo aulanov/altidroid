@@ -31,6 +31,16 @@ android {
         instrumentTest.setRoot('tests')
 
         debug.setRoot('build-types/debug')
+        debug.java.srcDirs = ['build-types/debug/src']
+
         release.setRoot('build-types/release')
+        release.java.srcDirs = ['build-types/release/src']
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            proguardFile 'proguard.cfg'
+        }
     }
 }
