@@ -52,6 +52,7 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
 
     private int mFreefallVolume;
     private int mCanopyVolume;
+    private boolean mMuteMusic;
 
     private final SharedPreferences mPreferences;
     private boolean mHasAudioFocus;
@@ -61,7 +62,7 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
         void stop();
 
         boolean play(int stream, int volume);
-    };
+    }
 
     private abstract class PlayHandlerBase implements PlayHandler {
         private int mOriginalVolume = -1;
@@ -88,7 +89,7 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
         }
 
         public abstract boolean play(int stream);
-    };
+    }
 
     private class MediaHandler extends PlayHandlerBase implements
             OnCompletionListener, OnSeekCompleteListener {
@@ -218,6 +219,7 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
         // Defaults are set in resources by R.xml.settings.
         mFreefallVolume = Math.round(mPreferences.getFloat(Preferences.FREEFALL_VOLUME, -1) * maxVolume);
         mCanopyVolume = Math.round(mPreferences.getFloat(Preferences.CANOPY_VOLUME, -1) * maxVolume);
+        mMuteMusic = mPreferences.getBoolean(Preferences.MUTE_MUSIC, true);
     }
 
     public void shutdown() {
@@ -277,8 +279,9 @@ public class AlarmPlayer implements SkydiveListener, TextToSpeech.OnInitListener
 
     @Override
     public synchronized void update(SkydiveState state) {
-        if (state.getType() == SkydiveState.Type.FREEFALL ||
-                state.getType() == SkydiveState.Type.CANOPY) {
+        if (mMuteMusic &&
+                (state.getType() == SkydiveState.Type.FREEFALL ||
+                        state.getType() == SkydiveState.Type.CANOPY)) {
             if (!mAudioFocusRequested) {
                 mAudioFocusRequested = true;
                 int result = mAudioManager.requestAudioFocus(

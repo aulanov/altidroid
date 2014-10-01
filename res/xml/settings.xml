@@ -26,4 +26,11 @@
         android:key="log_auto_fill"
         android:defaultValue="@string/default_log_auto_fill"/>
 
+    <CheckBoxPreference
+        android:title="@string/pref_mute_music"
+        android:summaryOn="@string/pref_mute_music_summary"
+        android:summaryOff="@string/pref_mute_music_summary"
+        android:key="mute_music"
+        android:defaultValue="@string/default_mute_music"/>
+
 </PreferenceScreen>

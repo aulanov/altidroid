@@ -38,6 +38,8 @@
     <string name="pref_log_auto_fill">Auto fill log data</string>
     <string name="pref_log_auto_fill_summary">Copy dropzone, equipment and aircraft information
         from the previous jump.</string>
+    <string name="pref_mute_music">Quiet freefall</string>
+    <string name="pref_mute_music_summary">Mute music during free fall and canopy ride.</string>
     <string name="preferences">Preferences</string>
     <string name="empty_log_text">No jumps logged.</string>
     <string name="jump_info_title">Jump Info</string>
@@ -62,6 +64,7 @@
     <string name="default_use_imperial_units">false</string>
     <string name="default_freefall_volume">0.85</string>
     <string name="default_canopy_volume">0.65</string>
+    <string name="default_mute_music">true</string>
     <string name="next_jump">Next jump:</string>
 
     <string-array name="jump_type_list">
