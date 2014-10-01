@@ -21,8 +21,6 @@ import java.util.LinkedList;
 
 import org.openskydive.altidroid.sensor.AltitudeListener.Update;
 
-import android.util.Log;
-
 public class AltitudeHistory {
 
     private static class MyUpdate {
@@ -49,36 +47,28 @@ public class AltitudeHistory {
     }
 
     public void add(Update update, boolean log) {
-        int alt;
+        int filteredAlt;
         if (mFilterCoef >= 1 || mHistory.size() == 0) {
-            alt = update.getAltitude();
+            filteredAlt = update.getAltitude();
         } else {
-            alt = (int) (mHistory.peekLast().mAltitude * (1-mFilterCoef) +
+            filteredAlt = (int) (mHistory.peekLast().mAltitude * (1-mFilterCoef) +
                     update.getAltitude() * mFilterCoef);
         }
-        MyUpdate myUpd = new MyUpdate(update.getTimestamp(), alt);
-        mHistory.add(myUpd);
+        MyUpdate filtered = new MyUpdate(update.getTimestamp(), filteredAlt);
+        mHistory.add(filtered);
         if (mMax == null || update.getAltitude() >= mMax.mAltitude) {
-            mMax = myUpd;
+            mMax = filtered;
         }
         if (mMin == null || update.getAltitude() <= mMin.mAltitude) {
-            mMin = myUpd;
+            mMin = filtered;
         }
-        mSum += update.getAltitude();
-
+        mSum += filteredAlt;
         removeOld(update.getTimestamp() - mTime);
-
-        if (log) {
-            Log.i("AltitudeHistory", "new:" + update.getAltitude() +
-                    " max:" + mMax.mAltitude +
-                    " min:" + mMin.mAltitude +
-                    " size:" + mHistory.size());
-        }
     }
 
     private void removeOld(long oldestLimit) {
         MyUpdate update;
-        while((update = mHistory.peek()) != null) {
+        while(mHistory.size() > 2 && (update = mHistory.peek()) != null) {
             if (update.mTimestamp > oldestLimit) {
                 break;
             }
@@ -142,6 +132,4 @@ public class AltitudeHistory {
     public int maxAltitude() {
         return mMax.mAltitude;
     }
-
-
 }
