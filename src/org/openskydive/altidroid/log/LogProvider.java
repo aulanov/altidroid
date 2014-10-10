@@ -37,7 +37,7 @@ public class LogProvider extends ContentProvider {
     private UriMatcher mUriMatcher = new UriMatcher(
             UriMatcher.NO_MATCH);
 
-
+    private LogDatabaseHelper mOpenHelper;
     private BackupManager mBackupManager;
 
     private static String getAuthority(Context context) {
