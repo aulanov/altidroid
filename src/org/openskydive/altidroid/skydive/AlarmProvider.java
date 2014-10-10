@@ -19,6 +19,7 @@ package org.openskydive.altidroid.skydive;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,21 +28,19 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class AlarmProvider extends ContentProvider {
-
     private static final int ALARMS = 1;
     private static final int ALARMS_ID = 2;
-    private static final UriMatcher sURLMatcher = new UriMatcher(
-            UriMatcher.NO_MATCH);
 
-    static {
-        sURLMatcher.addURI("org.openskydive.altidroid", "alarm", ALARMS);
-        sURLMatcher.addURI("org.openskydive.altidroid", "alarm/#", ALARMS_ID);
-    }
+    private UriMatcher mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     private AlarmDatabaseHelper mOpenHelper;
 
     @Override
     public boolean onCreate() {
+        String authority = getContext().getPackageName();
+        mUriMatcher.addURI(authority, "alarm", ALARMS);
+        mUriMatcher.addURI(authority, "alarm/#", ALARMS_ID);
+
         mOpenHelper = new AlarmDatabaseHelper(getContext());
         return true;
     }
@@ -52,7 +51,7 @@ public class AlarmProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables("alarms");
 
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
 
         switch(match) {
         case ALARMS:
@@ -75,7 +74,7 @@ public class AlarmProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
         switch (match) {
         case ALARMS:
             return "vnd.android.cursor.dir/skydive_alarm";
@@ -90,7 +89,7 @@ public class AlarmProvider extends ContentProvider {
     public int delete(Uri uri, String where, String[] whereArgs) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int count;
-        switch (sURLMatcher.match(uri)) {
+        switch (mUriMatcher.match(uri)) {
         case ALARMS:
             count = db.delete("alarms", where, whereArgs);
             break;
@@ -113,7 +112,7 @@ public class AlarmProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (sURLMatcher.match(uri) != ALARMS) {
+        if (mUriMatcher.match(uri) != ALARMS) {
             throw new IllegalArgumentException("Cannot insert into URI: " + uri);
         }
 
@@ -129,7 +128,7 @@ public class AlarmProvider extends ContentProvider {
             String[] selectionArgs) {
         int count;
         long rowId = 0;
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (match) {
         case ALARMS_ID: {

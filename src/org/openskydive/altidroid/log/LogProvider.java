@@ -20,6 +20,7 @@ import android.app.backup.BackupManager;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,31 +29,33 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class LogProvider extends ContentProvider {
-    public static final String AUTHORITY = "org.openskydive.altidroid.log";
-
-    public static final Uri COMPLETIONS_URI =
-            Uri.parse("content://" + AUTHORITY + "/completions");
-
     private static final int LOG = 1;
     private static final int LOG_JUMP_ID = 2;
     private static final int LOG_LAST = 3;
     private static final int COMPLETIONS = 4;
 
-    private static final UriMatcher sURLMatcher = new UriMatcher(
+    private UriMatcher mUriMatcher = new UriMatcher(
             UriMatcher.NO_MATCH);
 
-    static {
-        sURLMatcher.addURI(AUTHORITY, "log", LOG);
-        sURLMatcher.addURI(AUTHORITY, "log/#", LOG_JUMP_ID);
-        sURLMatcher.addURI(AUTHORITY, "log/last", LOG_LAST);
-        sURLMatcher.addURI(AUTHORITY, "completions", COMPLETIONS);
+
+    private BackupManager mBackupManager;
+
+    private static String getAuthority(Context context) {
+        return context.getPackageName() + ".log";
     }
 
-    private LogDatabaseHelper mOpenHelper;
-    private BackupManager mBackupManager;
+    public static Uri getCompletionsUri(Context context) {
+        return Uri.parse("content://" + getAuthority(context) + "/completions");
+    }
 
     @Override
     public boolean onCreate() {
+        String authority = getAuthority(getContext());
+        mUriMatcher.addURI(authority, "log", LOG);
+        mUriMatcher.addURI(authority, "log/#", LOG_JUMP_ID);
+        mUriMatcher.addURI(authority, "log/last", LOG_LAST);
+        mUriMatcher.addURI(authority, "completions", COMPLETIONS);
+
         mOpenHelper = new LogDatabaseHelper(getContext());
         mBackupManager = new BackupManager(getContext());
         return true;
@@ -64,7 +67,7 @@ public class LogProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables("log");
 
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
         String groupBy = null;
         String limit = null;
         switch (match) {
@@ -97,7 +100,7 @@ public class LogProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
         switch (match) {
         case LOG:
             return "vnd.android.cursor.dir/skydive_log";
@@ -112,7 +115,7 @@ public class LogProvider extends ContentProvider {
     public int delete(Uri uri, String where, String[] whereArgs) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int count;
-        switch (sURLMatcher.match(uri)) {
+        switch (mUriMatcher.match(uri)) {
         case LOG:
             count = db.delete("log", where, whereArgs);
             break;
@@ -136,7 +139,7 @@ public class LogProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (sURLMatcher.match(uri) != LOG) {
+        if (mUriMatcher.match(uri) != LOG) {
             throw new IllegalArgumentException("Cannot insert into URI: " + uri);
         }
 
@@ -156,7 +159,7 @@ public class LogProvider extends ContentProvider {
             String[] selectionArgs) {
         int count;
         long rowId = 0;
-        int match = sURLMatcher.match(uri);
+        int match = mUriMatcher.match(uri);
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (match) {
         case LOG_JUMP_ID: {

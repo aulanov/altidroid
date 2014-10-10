@@ -64,7 +64,7 @@ public class JumpInfoEdit extends Activity implements OnClickListener {
     private ArrayAdapter<String> getCompletions(String field, int arrayId) {
         // SELECT field FROM log WHERE length(field) > 0 GROUP BY field ORDER BY
         // field;
-        Cursor cursor = getContentResolver().query(LogProvider.COMPLETIONS_URI,
+        Cursor cursor = getContentResolver().query(LogProvider.getCompletionsUri(this),
                 new String[] { field }, "length(" + field + ") > 0", null,
                 field);
         if (cursor == null) {
