@@ -1,6 +1,6 @@
 #!/bin/sh
 
-APK=./build/apk/altidroid-release-unsigned.apk
+APK=./build/outputs/apk/altidroid-release-unsigned.apk
 OUT=altidroid_aligned.apk
 
 ./gradlew assembleRelease || exit 1
