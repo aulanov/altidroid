@@ -71,10 +71,11 @@ public class AlarmList {
 
     private synchronized void reload() {
         mCursor = mContext.getContentResolver().query(
-                Alarm.Columns.CONTENT_URI,
+                Alarm.Columns.getContentUri(mContext),
                 Alarm.Columns.QUERY_COLUMNS,
                 null, null, null);
-        mCursor.setNotificationUri(mContext.getContentResolver(), Alarm.Columns.CONTENT_URI);
+        mCursor.setNotificationUri(mContext.getContentResolver(),
+                Alarm.Columns.getContentUri(mContext));
         mFreefallAlarms = new ArrayList<Alarm>();
         mTimerAlarms = new ArrayList<Alarm>();
         mCanopyAlarms = new ArrayList<Alarm>();

@@ -163,7 +163,7 @@ public class JumpInfo {
             mLogEntry = buildNewLogEntry(context, jumpNumber, autoFill);
             Log.i("JumpInfo", "Logging: " + mLogEntry.getProto().toString());
             mLoggedUri = context.getContentResolver().insert(
-                    LogEntry.Columns.CONTENT_URI, mLogEntry.createContentValues());
+                    LogEntry.Columns.getContentUri(context), mLogEntry.createContentValues());
         } else {
             mLogEntry = updateLogEntry(mLogEntry);
             Log.i("JumpInfo", "Re-Logging: " + mLogEntry.createContentValues().toString());

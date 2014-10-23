@@ -321,7 +321,7 @@ public class StatusFragment extends Fragment
         case NEXT_JUMP_LOADER:
             return new CursorLoader(
                     getActivity(),
-                    Uri.withAppendedPath(LogEntry.Columns.CONTENT_URI, "last"),
+                    Uri.withAppendedPath(LogEntry.Columns.getContentUri(getActivity()), "last"),
                     LogEntry.Columns.QUERY_COLUMNS,
                     null,
                     null,

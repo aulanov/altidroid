@@ -126,7 +126,7 @@ public class JumpInfoActivity extends FragmentActivity {
             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    getContentResolver().delete(LogEntry.Columns.CONTENT_URI,
+                    getContentResolver().delete(LogEntry.Columns.getContentUri(JumpInfoActivity.this),
                                                 LogEntry.Columns.ID + "=?",
                                                 new String[] { Integer.toString(jumpId) });
                 }
@@ -148,7 +148,7 @@ public class JumpInfoActivity extends FragmentActivity {
                 MyContentObserver contentObserver) {
             super(fragmentManager);
 
-            mCursor = context.getContentResolver().query(LogEntry.Columns.CONTENT_URI,
+            mCursor = context.getContentResolver().query(LogEntry.Columns.getContentUri(context),
                     LogEntry.Columns.QUERY_COLUMNS,
                     null, null, LogEntry.Columns.NUMBER);
             mCursor.registerContentObserver(contentObserver);

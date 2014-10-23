@@ -53,7 +53,7 @@ public class AltidroidBackupAgent extends BackupAgentHelper {
         addHelper("prefs",
                 new SharedPreferencesBackupHelper(this, Preferences.PREFS_NAME));
         addHelper("log",
-                new DatabaseBackupHelper(this, LogEntry.Columns.CONTENT_URI, mLogAdapter));
+                new DatabaseBackupHelper(this, LogEntry.Columns.getContentUri(this), mLogAdapter));
 
         super.onCreate();
     }

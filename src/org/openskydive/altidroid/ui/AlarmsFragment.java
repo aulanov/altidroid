@@ -158,7 +158,7 @@ public class AlarmsFragment
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle arg1) {
-            return new CursorLoader(getActivity(), Alarm.Columns.CONTENT_URI,
+            return new CursorLoader(getActivity(), Alarm.Columns.getContentUri(getActivity()),
                     Alarm.Columns.QUERY_COLUMNS,
                     mFilter, null,
                     Alarm.Columns.VALUE + " DESC");

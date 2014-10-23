@@ -186,7 +186,7 @@ public class JumpInfoEdit extends Activity implements OnClickListener {
         builder.setFreefallTime(Integer.parseInt(mDelay.getText().toString()) * 1000);
         builder.setComments(mComments.getText().toString());
 
-        getContentResolver().update(mLogEntry.getUri(),
+        getContentResolver().update(mLogEntry.getUri(this),
                 LogEntry.createContentValues(builder.build()), null, null);
     }
 }

@@ -33,8 +33,9 @@ public class LogEntry implements Parcelable {
     final LogProtos.Entry mProto;
 
     public static class Columns {
-        public static final Uri CONTENT_URI =
-                Uri.parse("content://org.openskydive.altidroid.log/log");
+        public static final Uri getContentUri(Context context) {
+            return Uri.parse("content://" + context.getPackageName() + ".log/log");
+        }
 
         public static final String ID = "_id";
         public static final String NUMBER = "number";
@@ -69,7 +70,7 @@ public class LogEntry implements Parcelable {
 
     public static LogEntry readLastJump(Context context) {
         Cursor cursor = context.getContentResolver().query(
-                Uri.withAppendedPath(LogEntry.Columns.CONTENT_URI, "last"),
+                Uri.withAppendedPath(LogEntry.Columns.getContentUri(context), "last"),
                 LogEntry.Columns.QUERY_COLUMNS, null, null,
                 LogEntry.Columns.NUMBER + " DESC");
         if (cursor != null) {
@@ -168,12 +169,12 @@ public class LogEntry implements Parcelable {
         return createContentValues(mProto);
     }
 
-    public static Uri getUri(int id) {
-        return ContentUris.withAppendedId(Columns.CONTENT_URI, id);
+    public static Uri getUri(Context context, int id) {
+        return ContentUris.withAppendedId(Columns.getContentUri(context), id);
     }
 
-    public Uri getUri() {
-        return getUri(mProto.getId());
+    public Uri getUri(Context context) {
+        return getUri(context, mProto.getId());
     }
 
     @Override

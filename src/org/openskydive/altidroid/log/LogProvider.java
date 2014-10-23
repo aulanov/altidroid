@@ -145,12 +145,13 @@ public class LogProvider extends ContentProvider {
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         long rowId = db.insert("log", null, values);
-        Uri newUri = ContentUris.withAppendedId(LogEntry.Columns.CONTENT_URI, rowId);
+        Uri baseUri = LogEntry.Columns.getContentUri(getContext());
+        Uri newUri = ContentUris.withAppendedId(baseUri, rowId);
 
         mBackupManager.dataChanged();
         getContext().getContentResolver().notifyChange(newUri, null);
         getContext().getContentResolver().notifyChange(
-                Uri.withAppendedPath(LogEntry.Columns.CONTENT_URI, "last"), null);
+                Uri.withAppendedPath(baseUri, "last"), null);
         return newUri;
     }
 

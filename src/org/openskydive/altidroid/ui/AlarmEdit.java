@@ -356,15 +356,15 @@ public class AlarmEdit extends Activity implements OnSeekListener, TextWatcher,
             ContentValues values = mAlarm.createContentValues();
             if (mNewAlarm) {
                 values.remove(Alarm.Columns.ID);
-                getContentResolver().insert(Alarm.Columns.CONTENT_URI, values);
+                getContentResolver().insert(Alarm.Columns.getContentUri(this), values);
             } else {
                 getContentResolver()
-                        .update(mAlarm.getUri(), values, null, null);
+                        .update(mAlarm.getUri(this), values, null, null);
             }
             finish();
         } else if (view == mDeleteButton) {
             // TODO: ask confirmation
-            getContentResolver().delete(mAlarm.getUri(), null, null);
+            getContentResolver().delete(mAlarm.getUri(this), null, null);
             finish();
         } else if (view == mCancelButton) {
             finish();

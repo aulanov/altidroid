@@ -118,7 +118,7 @@ public class AlarmProvider extends ContentProvider {
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         long rowId = db.insert("alarms", null, values);
-        Uri newUri = ContentUris.withAppendedId(Alarm.Columns.CONTENT_URI, rowId);
+        Uri newUri = ContentUris.withAppendedId(Alarm.Columns.getContentUri(getContext()), rowId);
         getContext().getContentResolver().notifyChange(newUri, null);
         return newUri;
     }

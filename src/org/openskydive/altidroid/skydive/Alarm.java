@@ -18,6 +18,7 @@ package org.openskydive.altidroid.skydive;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Parcel;
@@ -31,8 +32,9 @@ public class Alarm implements Parcelable {
     }
 
     public static class Columns {
-        public static final Uri CONTENT_URI =
-                Uri.parse("content://org.openskydive.altidroid/alarm");
+        public static final Uri getContentUri(Context context) {
+            return Uri.parse("content://" + context.getPackageName() + "/alarm");
+        }
 
         public static final String ID = "_id";
         public static final String NAME = "name";
@@ -198,8 +200,8 @@ public class Alarm implements Parcelable {
         return values;
     }
 
-    public Uri getUri() {
-        return ContentUris.withAppendedId(Columns.CONTENT_URI, mId);
+    public Uri getUri(Context context) {
+        return ContentUris.withAppendedId(Columns.getContentUri(context), mId);
     }
 
     @Override
