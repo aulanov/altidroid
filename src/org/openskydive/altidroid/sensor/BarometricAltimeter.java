@@ -25,6 +25,7 @@ public class BarometricAltimeter extends AltimeterBase implements SensorEventLis
     private static final double NORMAL_PRESSURE = 1013.25;
     private static final double BAROMETRIC_CONSTANT = 44330;
     private static final double EXPONENTIAL_COEFFICIENT = 1 / 5.256;
+    private static final int SENSOR_DELAY_US = 150000;  // 150ms
     private final Sensor mBarometer;
     private final SensorManager mSensorManager;
 
@@ -35,7 +36,7 @@ public class BarometricAltimeter extends AltimeterBase implements SensorEventLis
     }
 
     public void start() {
-        mSensorManager.registerListener(this, mBarometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mBarometer, SENSOR_DELAY_US);
     }
 
     public void stop() {
