@@ -20,7 +20,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.FloatMath;
+import java.lang.Math;
 
 public class VerticalAccelerationSensor implements SensorEventListener {
     private final VerticalAccelerationListener mListener;
@@ -67,7 +67,7 @@ public class VerticalAccelerationSensor implements SensorEventListener {
     }
 
     private void updateGravityVector(float[] values) {
-        float l = FloatMath.sqrt(
+        float l = (float) Math.sqrt(
                 values[0] * values[0] +
                 values[1] * values[1] +
                 values[2] * values[2]);
