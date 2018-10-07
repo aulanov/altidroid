@@ -103,23 +103,6 @@ public class VolumePreference extends SeekBarPreference implements
         private final SeekBar mSeekBar;
         private final Uri mSampleUri;
 
-        private final ContentObserver mVolumeObserver = new ContentObserver(
-                mHandler) {
-            @Override
-            public void onChange(boolean selfChange) {
-                super.onChange(selfChange);
-                if (mSeekBar != null) {
-                    int volume = System.getInt(mContext.getContentResolver(),
-                            System.VOLUME_SETTINGS[AlarmPlayer.SAMPLE_STREAM], -1);
-                    // Works around an atomicity problem with volume updates
-                    // TODO: Fix the actual issue, probably in AudioService
-                    if (volume >= 0) {
-                        mSeekBar.setProgress(volume);
-                    }
-                }
-            }
-        };
-
         public SeekBarVolumizer(Context context, SeekBar seekBar,
                 float initialValue) {
             mContext = context;
@@ -146,10 +129,6 @@ public class VolumePreference extends SeekBarPreference implements
             mOriginalStreamVolume = mAudioManager.getStreamVolume(AlarmPlayer.SAMPLE_STREAM);
             seekBar.setProgress(Math.round(mVolume * mMaxVolume));
             seekBar.setOnSeekBarChangeListener(this);
-
-            mContext.getContentResolver().registerContentObserver(
-                    System.getUriFor(System.VOLUME_SETTINGS[AlarmPlayer.SAMPLE_STREAM]),
-                    false, mVolumeObserver);
 
             postSetVolume(seekBar.getProgress());
             sample();
@@ -218,8 +197,6 @@ public class VolumePreference extends SeekBarPreference implements
 
         public void stop() {
             stopSample();
-            mContext.getContentResolver().unregisterContentObserver(
-                    mVolumeObserver);
             mSeekBar.setOnSeekBarChangeListener(null);
         }
 
