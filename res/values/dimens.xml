@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="alert_dialog_button_bar_height">48dip</dimen>
-    <dimen name="jump_number_size">96dp</dimen>
-    <dimen name="jump_info_text_margit_small">4dp</dimen>
-    <dimen name="jump_info_text_margit_large">8dp</dimen>
-    <dimen name="units_margin">2sp</dimen>    
-</resources>

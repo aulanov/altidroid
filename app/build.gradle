@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+    testImplementation "org.robolectric:robolectric:3.8"
+}
+
+apply plugin: 'com.google.protobuf'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "org.openskydive.altidroid"
+        minSdkVersion 22
+        targetSdkVersion 27
+        versionCode 7
+        versionName "1.0"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("boolean", "SHOW_DEBUG_INFO", "false")
+            buildConfigField("boolean", "ALLOW_NO_SENSOR", "false")
+        }
+        debug {
+            buildConfigField("boolean", "SHOW_DEBUG_INFO", "false")
+            buildConfigField("boolean", "ALLOW_NO_SENSOR", "true")
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.0.0'
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                remove java
+            }
+            task.plugins {
+                javalite { }
+            }
+        }
+    }
+}
+
+android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}

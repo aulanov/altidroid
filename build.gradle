@@ -2,45 +2,24 @@ buildscript {
     repositories {
         jcenter()
         mavenLocal()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
-apply plugin: 'android'
 
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+allprojects {
+    repositories {
+        jcenter()
+        mavenLocal()
+        google()
+    }
 }
 
-android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['protobuf-src','src']
-            resources.srcDirs = ['protobuf-src','src']
-            aidl.srcDirs = ['protobuf-src','src']
-            renderscript.srcDirs = ['protobuf-src','src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-
-        // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
-
-        debug.setRoot('build-types/debug')
-        debug.java.srcDirs = ['build-types/debug/src']
-
-        release.setRoot('build-types/release')
-        release.java.srcDirs = ['build-types/release/src']
-    }
-
-    buildTypes {
-        release {
-            proguardFile 'proguard.cfg'
-        }
-    }
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

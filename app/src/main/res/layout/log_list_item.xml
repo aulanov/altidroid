@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="?android:attr/scrollbarSize" >
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="false"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/first_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/number"
+        android:layout_toStartOf="@id/first_line_right"
+        android:gravity="bottom"
+        android:minHeight="24dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/first_line_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/first_line"
+        android:layout_alignParentEnd="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center"
+        android:minHeight="24dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/second_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/first_line"
+        android:layout_toEndOf="@id/number"
+        android:gravity="center"
+        android:minHeight="24dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <TextView
+         android:id="@+id/second_line_right"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@id/second_line"
+         android:layout_alignParentEnd="true"
+         android:layout_alignWithParentIfMissing="true"
+         android:gravity="center"
+         android:minHeight="24dp"
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

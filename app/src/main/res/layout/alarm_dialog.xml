@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:layout_marginTop="8dp">
+
+    <org.openskydive.altidroid.ui.VerticalSeekBar
+        android:id="@+id/seekBar"
+        style="@android:style/Widget.Material.SeekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp" />
+
+    <RadioGroup
+        android:id="@+id/picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/seekBar"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:singleLine="true"
+            android:importantForAutofill="no"
+            android:inputType="textAutoComplete"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/altitude"
+            android:layout_marginTop="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/altitude_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:hint="00000"
+                tools:ignore="HardcodedText"
+                android:importantForAutofill="no">
+
+                <requestFocus />
+            </EditText>
+            
+            <TextView
+                android:id="@+id/units_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sound"
+            android:layout_marginTop="8dp"/>
+
+        <RadioButton
+            android:id="@+id/builtin_sound_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/built_in" />
+
+        <Spinner
+            android:id="@+id/builtin_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/alarm_sounds"
+            android:prompt="@string/alarm_sound" 
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/tts_message_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tts_message" />
+
+        <LinearLayout
+            android:id="@+id/tts_message_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+            
+	        <EditText
+    	        android:id="@+id/tts_message"
+        	    android:layout_width="0dip"
+            	android:layout_height="wrap_content"
+                android:layout_weight="1"
+	            android:hint="@string/message"
+                android:singleLine="true"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+	        <Button
+               android:id="@+id/play_tts_message"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/play_button" />
+	        
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/system_alarm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/system_alarm" />
+        
+        <LinearLayout
+            android:id="@+id/system_alarm_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+        
+            <TextView
+                android:id="@+id/system_alarm_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true" />
+
+           <Button
+               android:id="@+id/pick_system_alarm"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/pick" />
+
+        </LinearLayout>
+        
+        <RadioButton
+            android:id="@+id/custom_sound_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_sound" />
+        
+        <LinearLayout
+            android:id="@+id/custom_sound_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+        
+            <TextView
+                android:id="@+id/custom_sound_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" 
+                android:ellipsize="end"
+                android:singleLine="true" />
+
+           <Button
+               android:id="@+id/pick_custom_sound"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/pick" />
+
+        </LinearLayout>
+        
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/buttonBar"
+        android:background="?android:attr/dividerHorizontal"  />
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:id="@+id/buttonBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:measureWithLargestChild="true"
+        android:minHeight="@dimen/alert_dialog_button_bar_height"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:minHeight="@dimen/alert_dialog_button_bar_height"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/delete"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:text="@string/delete" />
+        
+        <Button
+            android:id="@+id/ok"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:minHeight="@dimen/alert_dialog_button_bar_height"
+            android:text="@string/ok" />
+    </LinearLayout>
+
+</RelativeLayout>
