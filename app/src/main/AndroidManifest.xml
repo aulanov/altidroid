@@ -15,6 +15,7 @@
         android:backupAgent="AltidroidBackupAgent"
         android:restoreAnyVersion="true"
         android:allowBackup="true"
+        android:backupInForeground="true"
         android:theme="@android:style/Theme.Material"
         android:supportsRtl="true">
 
