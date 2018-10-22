@@ -27,8 +27,21 @@ android {
         targetSdkVersion 27
         versionCode 7
         versionName "1.0"
+        manifestPlaceholders = [app_name_label:"@string/app_name"]
     }
 
+    flavorDimensions "channel"
+
+    productFlavors {
+        opensource {
+            dimension "channel"
+            manifestPlaceholders = [app_name_label:"Altidroid open"]
+        }
+        googleplay {
+            dimension "channel"
+            applicationId "org.ulanov.altidroid"
+        }
+    }
 
     buildTypes {
         release {
@@ -42,9 +55,16 @@ android {
             buildConfigField("boolean", "ALLOW_NO_SENSOR", "true")
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -65,14 +85,6 @@ protobuf {
             task.plugins {
                 javalite { }
             }
-        }
-    }
-}
-
-android {
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
         }
     }
 }

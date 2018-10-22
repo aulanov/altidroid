@@ -11,7 +11,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="${app_name_label}"
         android:backupAgent="AltidroidBackupAgent"
         android:restoreAnyVersion="true"
         android:allowBackup="true"
@@ -22,11 +22,11 @@
                 android:value="AEdPqrEAAAAIZfT_gAKY6xNygtm34Y6OiAjMZvaxDZgaEajXdA" />
 
         <provider android:name="org.openskydive.altidroid.skydive.AlarmProvider"
-                android:authorities="org.openskydive.altidroid"
+                android:authorities="${applicationId}"
                 android:exported="false" />
 
         <provider android:name="org.openskydive.altidroid.log.LogProvider"
-                android:authorities="org.openskydive.altidroid.log"
+                android:authorities="${applicationId}.log"
                 android:exported="false" />
 
         <service android:name="AltidroidService">
@@ -37,7 +37,7 @@
 
         <activity
             android:name=".AltidroidActivity"
-            android:label="@string/app_name"
+            android:label="${app_name_label}"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
