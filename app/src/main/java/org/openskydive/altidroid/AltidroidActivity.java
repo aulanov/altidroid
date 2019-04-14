@@ -32,6 +32,7 @@ import android.content.SharedPreferences.Editor;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +47,12 @@ public class AltidroidActivity extends FragmentActivity implements TabListener {
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
         Context mContext;
 
+        @IntDef({FRAGMENT_STATUS, FRAGMENT_ALARMS, FRAGMENT_LOG})
+        public @interface FragmentId {}
+        private static final int FRAGMENT_STATUS = 0;
+        private static final int FRAGMENT_ALARMS = 1;
+        private static final int FRAGMENT_LOG = 2;
+
         public AppSectionsPagerAdapter(Context context, FragmentManager fm) {
             super(fm);
             mContext = context;
@@ -54,11 +61,11 @@ public class AltidroidActivity extends FragmentActivity implements TabListener {
         @Override
         public Fragment getItem(int i) {
             switch (i) {
-                case 0:
+                case FRAGMENT_STATUS:
                     return new StatusFragment();
-                case 1:
+                case FRAGMENT_ALARMS:
                     return new AlarmsFragment();
-                case 2:
+                case FRAGMENT_LOG:
                     return new LogFragment();
             }
             return null;
@@ -72,11 +79,11 @@ public class AltidroidActivity extends FragmentActivity implements TabListener {
         @Override
         public CharSequence getPageTitle(int position) {
             switch(position) {
-            case 0:
+            case FRAGMENT_STATUS:
                 return mContext.getString(R.string.status_title);
-            case 1:
+            case FRAGMENT_ALARMS:
                 return mContext.getString(R.string.alarms_title);
-            case 2:
+            case FRAGMENT_LOG:
                 return mContext.getString(R.string.log_title);
             }
             return null;
